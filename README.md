@@ -47,7 +47,7 @@ Start vagrant
     vagrant up
 
 TODO:
-
+    Unit Tests
     Require filters to not be empty
     Pagination    
 
