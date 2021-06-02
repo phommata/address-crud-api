@@ -45,3 +45,15 @@ Update Homestead.yaml with folders, sites, databases, and mysql8 feature
 Start vagrant
 
     vagrant up
+
+TODO:
+
+    Require filters to not be empty
+    Pagination    
+
+Productionize:
+
+    Authentication
+    Docker container
+    Helm chart
+    SQL database w/ Elastic Search

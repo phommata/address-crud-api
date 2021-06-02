@@ -26,25 +26,44 @@ class AddressController extends Controller
 
     public function read(Request $request)
     {
-        return response()->json(Address::filter($request->all())->get());
+        try {
+            return response()->json(Address::filter($request->all())->get());
+//            $limit = $request->input('limit');
+//            $page = $request->input('page');
+//            return response()->json(Address::limit($limit)->offset($limit * $page - 1)->get());
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function readById($id)
     {
-        return response()->json(Address::find($id));
+        try {
+            return response()->json(Address::find($id));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function update($id, Request $request)
     {
-        $address = Address::findOrFail($id);
-        $address->update($request->all());
+        try {
+            $address = Address::findOrFail($id);
+            $address->update($request->all());
 
-        return response()->json($address, Response::HTTP_OK);
+            return response()->json($address, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Invalid ID'], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function delete($id)
     {
-        Address::findOrFail($id)->delete();
-        return response('Deleted Successfully', Response::HTTP_OK);
+        try {
+            Address::findOrFail($id)->delete();
+            return response('Deleted Successfully', Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Invalid ID'], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
