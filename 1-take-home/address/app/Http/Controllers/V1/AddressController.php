@@ -21,7 +21,11 @@ class AddressController extends Controller
 
     public function create(Request $request)
     {
-        return response()->json(Address::create($request->all()), Response::HTTP_CREATED);
+        try {
+            return response()->json(Address::create($request->all()), Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function read(Request $request)
